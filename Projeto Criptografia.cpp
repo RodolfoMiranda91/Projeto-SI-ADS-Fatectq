@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
-#include <locale.h>
 #include <windows.h>
+#include <ctype.h>
 
 void gotoxy(int x, int y)
 { // serve para direcionar o cursor dentro do CMD
@@ -16,9 +16,11 @@ void gotoxy(int x, int y)
 int criptografar(){      //Função que faz a criptografia do texto digitado pelo usuário
     
 	char texto[25];
+	int up_texto;
     int chave, tamanho_texto, cont;
  
     system("cls");
+    
     //Sistema pede para que o usuário digite seu texto
  	printf("||========================================================================================||\n");
     printf("||Digite o texto a ser criptografado:                                                     ||\n||========================================================================================||\n\n\n");
@@ -26,7 +28,7 @@ int criptografar(){      //Função que faz a criptografia do texto digitado pelo 
     gets(texto);
  	 
  	//Usuário escolhe a chave a ser usada na criptografia 
-    while(chave<1 || chave>25)
+    while(chave < 1 || chave > 25)
     {
     	printf("||========================================================================================||\n");
         printf("||Digite a chave desejada (Deve ser de 1 a 25):                                           ||\n||========================================================================================||\n\n");
@@ -34,12 +36,13 @@ int criptografar(){      //Função que faz a criptografia do texto digitado pelo 
 		scanf("%d",&chave);
         fflush(stdin);
     }
- 
+    
  	/*Sistema pega a frase digitada e a chave escolhida pelo usuario, por metodo de substituição
 	 é trocado os caracteres de acordo com a chave escolhida trocando de 1 em 1, 2 em 2 ate o limite de 25 os caracteres.*/
     tamanho_texto = strlen(texto); // ver quantos caracteres tem a string e salva no tamanho texto
+    up_texto = strlen(strupr(texto)); // feito para transformar o texto em inteiro e dps ele transformar em letra maiuscula
     for(cont=0;cont<tamanho_texto;cont++) // enquanto o tam_text for menor q o cont, o for fica rodando
-        texto[cont] = texto[cont]+chave*2; // aqui o texto é jogado em cada rodada do for, e a letra e trocada pela chave
+        texto[cont] = texto[cont]+chave; // aqui o texto é jogado em cada rodada do for, e a letra e trocada pela chave
  
  	printf("\n||========================================================================================||\n");
     printf("    RESULTADO = %s                                                                 ",texto);
@@ -75,7 +78,7 @@ int descriptografar(){ //Função que faz a descriptografia do texto digitado pelo
 	 é trocado os caracteres de acordo com a chave escolhida trocando de 1 em 1, 2 em 2 ate o limite de 25 os caracteres.*/
     tamanho_texto = strlen(texto); // ver quantos caracteres tem a string e salva no tamanho texto
     for(cont=0;cont<tamanho_texto;cont++) // enquanto o tam_text for menor q o cont, o for fica rodando
-        texto[cont] = texto[cont]-chave*2; // aqui o texto é jogado em cada rodada do for, e a letra e trocada pela chave
+        texto[cont] = texto[cont]-chave; // aqui o texto é jogado em cada rodada do for, e a letra e trocada pela chave
 
  
    printf("\n||========================================================================================||\n");
